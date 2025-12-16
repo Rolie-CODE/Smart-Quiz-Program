@@ -1,6 +1,5 @@
 from openai import OpenAI
-
-client = OpenAI(api_key="your api should be here")
+client = OpenAI(api_key="your-api-key-here")
 
 def chatWithGPT(prompt):
     response = client.chat.completions.create(
@@ -26,12 +25,10 @@ if choice == "1":
     print("You have selected Quiz Mode")
     print("Select level of difficulty: easy, medium, hard")
     no = 0
+    difficulty = input("Enter difficulty: ").lower()
+    print(f"You have selected {difficulty} level")
     while True:
-
         no += 1
-
-        difficulty = input("Enter difficulty: ").lower()
-        print(f"You have selected {difficulty} level")
         if difficulty == "easy":
             prompt = (
                 "Ask me ONE easy multiple-choice computer science question. "
@@ -76,30 +73,82 @@ if choice == "1":
 elif choice == "2":
     
     print("You have selected Set Questions From Slides")
-    while True:
+    
 
-        slides = input("Paste your slide content here: ")
+    slides = input("Paste your slide content here: ")
+    print("Congratulations, your slides have been pasted.")
+    print("Quesstions")
+    print("=================")
+    print("1. Theoretical Questions")
+    print("2. Multiple Choice Questions")
+    print("3. Exit to Main Menu")
 
-        prompt = (
-            f"Go through the text in {slides} and create a multiple choice question from the content"
-            "Label options A, B, C, D and silently remember the correct answer."
-            "Do not repeat any questions and also dont tell me the answer yet"
-        )
+    choice = input("")
+    if choice == "1":
+        print("Congratulations, OpenAi will now set theoretical questions for you to answer!!!")
 
-        question = chatWithGPT(prompt)
-        print("Here is your question:")
-        print(question)
+        while True:
+            prompt = (
+                f"Go through the text in {slides} and create a theoretical question from the content"
+                "Silently remember the correct answer."
+                "Do not repeat any questions and also dont tell me the answer yet"
+                "Wait for my answer before you give me a different question"
+                "Try and let the questions move from easy to hard as we progress"
+            )
+            question = chatWithGPT(prompt)
+            print("Here is your question:")
+            print(question)
 
-        user_answer = input("Answer: ").capitalize()
+            user_answer = input("Answer(Type 'e' to exit the program): ")
+            if user_answer.lower() == 'e':
+                print("Exiting Set Questions From Slides mode.")
+                break
+            
+            response = chatWithGPT(
+                f"This was the question:\n{question}\n\n"
+                f"My answer is {user_answer}. "
+                "Check if it is correct or incorrect and explain briefly."
+            )
 
-        response = chatWithGPT(
-            f"This was the question:\n{question}\n\n"
-            f"My answer is {user_answer}. "
-            "Check if it is correct or incorrect and explain briefly."
-        )
+            print(response)
+            
+            continue
 
-        print(response)
-        continue
+    if choice == "2":
+        print("COngratulations, OpenAi will now set questions for you to answer!!!")
+
+        while True:
+            prompt = (
+                f"Go through the text in {slides} and create a multiple choice question from the content"
+                "Label options A, B, C, D and silently remember the correct answer."
+                "Do not repeat any questions and also dont tell me the answer yet"
+                "Wait for my answer before you give me a different question"
+                "Try and let the questions move from easy to hard as we progress"
+            )
+            question = chatWithGPT(prompt)
+            print("Here is your question:")
+            print(question)
+
+            user_answer = input("Answer(Type 'e' to exit the program): ")
+            if user_answer.lower() == 'e':
+                print("Exiting Set Questions From Slides mode.")
+                break
+            
+            response = chatWithGPT(
+                f"This was the question:\n{question}\n\n"
+                f"My answer is {user_answer}. "
+                "Check if it is correct or incorrect and explain briefly."
+            )
+
+            print(response)
+            
+            continue
+        
+    if choice == "3":
+        while True:
+            print("Exiting to Main Menu.")
+            
+            break
 
 
 elif choice == "3":
