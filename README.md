@@ -118,6 +118,7 @@ smart-quiz-program/
 
 ---
 
+
 ## Disclaimer
 
 This project is intended for educational purposes. Users are responsible for securing their API keys and complying with OpenAI’s usage policies.
