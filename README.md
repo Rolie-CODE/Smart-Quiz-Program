@@ -114,7 +114,6 @@ smart-quiz-program/
 * Score tracking and performance analytics
 * Support for loading slide content from text files
 * Question history management
-* Web-based interface using a Python web framework
 
 ---
 
